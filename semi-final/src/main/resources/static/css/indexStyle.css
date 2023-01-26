@@ -1,0 +1,116 @@
+/* 슬라이더 css */
+.slider{
+    width: 100vw;
+    height: 60vh;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.slider input[type=radio]{
+    display: none;
+}
+button:hover{
+    cursor: pointer;
+}
+
+li>img{
+    width: 100vw;
+    height: 60vh;
+}
+
+ul.imgs{
+    padding: 0;
+    margin: 0;
+}
+ul.imgs li{
+    position: absolute;
+    left: 640px;
+    transition-delay: 1s;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bullets{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    z-index: 2;
+}
+.bullets label{
+    display: inline-block;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.55);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4){
+    background-color: #fff;
+}
+
+.slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+
+/* 학원 과정 리스트 css */
+.hlist {
+    text-align: center;
+    margin: 80px;
+}
+
+.clist-div {
+    margin-bottom: 80px;
+}
+
+.cwrtBtn-div{
+
+    width: 1000px;
+    margin:0 auto;
+    padding-bottom: 10px;
+}
+
+.cwrtBtn {
+    width: 135px;
+    margin-bottom : 10px;
+    text-align: center;
+    background: #ffc451;
+    border: 0;
+    padding: 10px 30px;
+    color: #151515;
+    transition: 0.4s;
+    border-radius: 15px;
+    float: right;
+}
+
+.cwrtBtn:nth-child(2) {
+    margin-right: 10px;
+}

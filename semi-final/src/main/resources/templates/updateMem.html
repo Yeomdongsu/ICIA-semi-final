@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보 수정</title>
+    <link rel="stylesheet" href="css/regStyle.css">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+</head>
+<body>
+<th:block th:include="header.html"></th:block>
+<div class="wrapper">
+    <div class="overlay-right">
+        <h1>정보 수정</h1><br>
+        <form th:action="@{updateMem2}" method="post">
+            <input type="text" placeholder="아이디" name="mid" id="idin"
+                   th:value="${session.member.getMid()}" readonly>
+            <input type="password" placeholder="비밀번호" name="mpwd" maxlength="20" required>
+            <input type="text" name="mname" placeholder="이름" maxlength="30"
+                   th:value="${session.member.getMname()}" required>
+            <input type="text" name="mage" placeholder="나이" pattern="\d*"
+                   th:value="${session.member.getMage()}" maxlength="3" title="숫자를 입력해주세요">
+            <input type="text" name="maddress" placeholder="주소"
+                    th:value="${session.member.getMaddress()}">
+            <input type="tel" name="mphone" placeholder="000-0000-0000"
+                   th:value="${session.member.getMphone()}" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+                   title="전화번호를 입력해주세요">
+            <input type="hidden" name="mgrade" th:value="${session.member.getMgrade()}">
+            <button id="signUp" class="overlay_btn">정보수정</button>
+        </form>
+    </div>
+</div>
+<th:block th:include="footer.html"></th:block>
+</body>
+
+</html>

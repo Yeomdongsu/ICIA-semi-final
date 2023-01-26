@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title>과정 상세보기</title>
+    <link rel="stylesheet" href="css/detail.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
+
+    <style>
+        @font-face {
+            font-family: "nanum";
+            src: url("fonts/eun_NanumSquareR.ttf");
+        }
+
+        * {
+            font-family: nanum;
+        }
+    </style>
+</head>
+<body>
+<th:block th:include="header.html"></th:block>
+<div class="back">
+    <fieldset>
+        <div class="bac">
+            <legend>과정 상세 페이지</legend>
+            <div class="content">
+                <h2 id="title"><span th:text="${course.cname}"></span></h2><br>
+                <img src="/img/coding2.jpg">
+                <div id="details">
+                    <h4 class="sub_Title">교육 정보</h4>
+                    <h2>강사 : <span th:text="${course.ctname}"></span></h2>
+                    <h2>과정 기간 : <span th:text="${course.cdate}"></span></h2>
+                    <h2>금액 : <span th:text="${course.cprice}"></span></h2>
+                    <h4 class="sub_Title2">과정 소개</h4>
+                    <p th:text="${course.cintro}"></p>
+                    <div class="btns">
+                    <div class="btn"><input class="btn1" type="button" value="신청하기"></div>
+                    <div class="btn"><input class="btn2" type="button" value="뒤로가기"></div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m != null) {
+        alert("신청 실패했습니다.");
+    }
+
+    $(":button").first().click(function () { // 신청 버튼
+        location.href = "apply?cname=" + [[${course.cname}]];
+    });
+
+    $(":button").last().click(function () { // 뒤로 가기 버튼
+        location.href = "main";
+    });
+
+</script>
+</html>

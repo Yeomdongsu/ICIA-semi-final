@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title>과정 등록 페이지</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="css/cWrtStyle.css">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+    <style>
+        div h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        div h4 {
+            display: block;
+            margin-block-start: 1.33em;
+            margin-block-end: 1.33em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #acName {
+            margin: 15px 0;
+        }
+
+        .top-right {
+            margin: 18px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="top-bar">
+    <div class="h-content">
+        <img alt="로고" src="img/scialogo45.png" class="top-left logo" onclick="location.href='main'">
+        <h2 class="top-left" id="acName">SCIA</h2>
+    </div>
+    <div class="id-div">
+        <h4 class="top-right">
+            <span th:text="${session.member.getMid()} + '님'" style="margin: 0 20px"></span>
+            <a th:href="@{logoutProc}" style="color: white">[로그아웃]</a>
+            <a th:href="@{delmem}" style="color: white" id="delmem" onclick="return confirm('탈퇴 ㄱ?')">[회원 탈퇴]</a>
+        </h4>
+    </div>
+</div>
+<article style="margin-bottom: 75px">
+    <div class="container" role="main">
+        <h1 class="ftitle">과정 등록</h1>
+        <form name="form" id="form" role="form" th:action="@{courseWrt}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label>과정 제목</label>
+                <input type="text" class="form-control" name="cname" id="title" placeholder="과정 제목을 입력해주세요" required>
+            </div>
+            <div class="row mb-3">
+                <div class="teacher">
+                    <label>강사 이름</label>
+                    <input type="text" class="form-control" name="ctname" placeholder="강사 이름을 입력해주세요" required>
+                </div>
+                <div class="price">
+                    <label>과정 가격</label>
+                    <input type="text" class="form-control" name="cprice" placeholder="과정 가격을 입력해주세요" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>과정 기간</label>
+                <input type="text" class="form-control" name="cdate" placeholder="과정 기간을 입력해주세요 ex) 22.01.01 ~ 22.12.31"
+                       required>
+            </div>
+            <div class="mb-3">
+                <label for="content">내용</label>
+                <textarea class="form-control" rows="5" name="cintro" id="content" placeholder="내용을 입력해주세요"
+                          required></textarea>
+            </div>
+            <div class="btn-area">
+                <button class="btn" type="submit">등록</button>
+            </div>
+        </form>
+    </div>
+</article>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m != null) {
+        alert(m);
+    }
+</script>
+</html>

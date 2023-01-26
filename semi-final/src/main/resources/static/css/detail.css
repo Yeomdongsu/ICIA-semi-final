@@ -1,0 +1,103 @@
+@font-face {
+    font-family: "nanum";
+    src: url("../resources/static/fonts/eun_NanumSquareR.ttf");
+}
+*{
+    margin:0;
+    padding: 0;
+    font-family: nanum;
+}
+
+.back{
+    margin-top: 100px;
+}
+fieldset {
+    border: 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: auto;
+    width: 600px;
+}
+.bac{
+    border-radius: 15px;
+
+}
+
+legend {
+    text-align: center;
+    margin: auto;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.content {
+    padding: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#details {
+    font-size: 12px;
+}
+
+#title {
+    text-align: center;
+}
+
+.sub_Title {
+    font-size: 25px;
+    text-align: center;
+    color: #FAEBEF;
+}
+.sub_Title2{
+    font-size: 25px;
+    text-align: center;
+    padding-top: 40px;
+    color: #FAEBEF;
+}
+
+.btn1, .btn2 {
+    border: 0;
+    margin: 0 auto;
+    background-color: #ffc451;
+    color: black;
+    width: 40%;
+    height: 40px;
+    display: block;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+.btns{
+    margin: 0 auto;
+}
+
+span, h2, legend {
+    color: #FAEBEF;
+    padding-top: 40px;
+
+}
+.btn1{
+    margin-top: 20px;
+}
+
+.btn2 {
+    border: 0;
+    /*background-color: #FFFFFF;*/
+    color: #000000;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.bac {
+    background-color: #0063B2;
+    margin-bottom: 50px;
+}
+h4{
+    padding-top: 20px;
+}
+
+p{
+    color: #FAEBEF;
+    padding-top: 20px;
+    font-size: 20px;
+}

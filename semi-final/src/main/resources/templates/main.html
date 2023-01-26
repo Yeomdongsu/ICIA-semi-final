@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>SCIA 학원</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Main CSS File -->
+    <link href="css/indexStyle.css" rel="stylesheet">
+    <link href="css/cListStyle.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: "nanum";
+            src: url("fonts/eun_NanumSquareR.ttf");
+        }
+
+        * {
+            font-family: nanum;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+<th:block th:include="header.html"></th:block>
+<!-- 슬라이더 -->
+<div class="slider">
+    <input type="radio" name="slide" id="slide1" checked>
+    <input type="radio" name="slide" id="slide2">
+    <input type="radio" name="slide" id="slide3">
+
+    <ul id="imgholder" class="imgs">
+        <li><img src="img/001.jpg"></li>
+        <li><img src="img/002.jpg"></li>
+        <li><img src="img/003.jpg"></li>
+    </ul>
+
+    <div class="bullets">
+        <label for="slide1">&nbsp;</label>
+        <label for="slide2">&nbsp;</label>
+        <label for="slide3">&nbsp;</label>
+    </div>
+</div>
+
+<main id="main">
+    <!-- 과정 리스트 섹션 -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="hlist">학원 과정 목록</h2>
+            <div class="clist-div">
+                <div class="cwrtBtn-div">
+                    <button class="cwrtBtn" onclick="location.href='Complete'">신청자 목록</button>
+                    <th:block th:if="${session.member.getMgrade()} == '0'">
+                        <button class="cwrtBtn" onclick="location.href='courseFrm'">과정 등록</button>
+                    </th:block>
+                    <th:block th:unless="${session.member.getMgrade()} == '0'">
+                        <button class="cwrtBtn" onclick="location.href='courseFrm'" style="display: none">과정 등록</button>
+                    </th:block>
+                </div>
+                <
+                <!-- 리스트 테이블 -->
+                <div id="wrap">
+                    <table>
+                        <tr colspan="2">
+                            <th>과정 제목</th>
+                            <th>과정 기간</th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="scroll-table">
+                    <table>
+
+                        <th:block th:if="${#lists.isEmpty(cList)}">
+                            <div class="non-content" style="margin-top: 80px; text-align: center">등록된 과정이 없습니다.</div>
+                        </th:block>
+                        <th:block th:unless="${#lists.isEmpty(cList)}">
+                            <th:block th:each="cr:${cList}">
+                                <tr>
+                                    <td><a th:href="@{detail(cname=${cr.cname})}">[[${cr.cname}]]</a></td>
+                                    <td th:text="${cr.cdate}"></td>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m != null) {
+        alert(m);
+    }
+
+</script>
+<script>
+    // 슬라이드 처리
+    let i = 0; // 슬라이드 번호
+
+    const pos = document.querySelectorAll("[type='radio']");
+
+    function slide() {
+        i++;
+        if (i >= 4) {
+            i = 0;
+        }
+        // 라디오버튼 체크상태 변경
+        pos[i].checked = true;
+    }
+
+    let inter = setInterval(slide, 3000);
+
+    function change(po) {
+        i = po;
+        clearInterval(inter);
+        inter = setInterval(slide, 3000);
+    }
+</script>
+</html>

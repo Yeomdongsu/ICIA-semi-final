@@ -1,0 +1,42 @@
+/*
+* top-bar
+*/
+
+.h-content{
+    margin-left: 20px;
+}
+
+.top-bar {
+    background-color: rgb(22, 41, 126);
+    color: #fff;
+    min-height: 58px;
+    line-height: 58px;
+}
+
+.top-left {
+    float: left !important;
+    padding: 0px;
+    margin: 0px;
+}
+
+.logo {
+    margin-top: 11px;
+    margin-right: 5px;
+    width: 35px;
+    border-radius: 10px;
+}
+
+.top-right {
+    float: right !important;
+    color: rgb(255, 255, 255);
+    padding: 0px;
+    margin: 0px;
+}
+
+.id-div {
+    margin-right: 20px;
+}
+
+.h-content:hover{
+    cursor: pointer;
+}

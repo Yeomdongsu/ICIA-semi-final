@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/regStyle.css">
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="overlay-right">
+        <h1>회원가입</h1><br>
+        <form th:action="@{regmem}" th:method="post">
+            <input type="text" placeholder="아이디" name="mid" id="idin" autofocus maxlength="20" required>
+            <span id="idcheck"></span>
+            <input type="password" placeholder="비밀번호" name="mpwd" maxlength="20" required>
+            <input type="text" name="mname" placeholder="이름" maxlength="30" required>
+            <input type="text" name="mage" placeholder="나이" pattern="\d*" maxlength="3" title="숫자를 입력해주세요" required>
+            <input type="text" name="maddress" placeholder="주소" required>
+            <input type="tel" name="mphone" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+                   title="전화번호를 입력해주세요" maxlength="13" required>
+            <button id="signUp" class="overlay_btn">회원가입</button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+<script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m != null) {
+        alert(m);
+    }
+
+    $("#idin").keyup(function () {
+        let mid = $("#idin").val();
+        let data = {"mid": mid};
+        let a = $("#idcheck");
+        let rs = null;
+
+        $.ajax({
+            url: "idcheck",
+            type: "post",
+            data: data,
+            success: function (num) {
+                if (num == "1") {
+                    a.html("사용 가능한 아이디").css("color", "black");
+                } else if (num == "2") {
+                    a.html("이미 사용중인 아이디").css("color", "red");
+                } else {
+                    a.text("뭔가 오류").css("color", "red");
+                }
+            },
+            error(num) {
+                console.log(num);
+                a.text("오류");
+            }
+        });
+        console.log(data);
+    });
+
+</script>
+</html>

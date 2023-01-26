@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/LoginStyle.css">
+    <title>로그인/회원가입</title>
+    <style>
+        .pp {
+            height: 70px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="sign-in-container">
+            <form th:action="@{loginmem}" th:method="post"><br>
+                <h1>로그인</h1><br>
+                <input type="text" placeholder="아이디" name="mid" required>
+                <input type="password" placeholder="비밀번호" name="mpwd" required><br>
+                <button class="form_btn">로그인</button>
+            </form>
+        </div>
+        <div class="overlay-right">
+            <h1>회원가입</h1><br>
+            <p class="pp"></p>
+            <button id="signUp" class="overlay_btn" onclick="location.href='reg'">회원가입</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m != null) {
+        alert(m);
+    }
+
+    let me = [[${me}]];
+    if (me != null){
+        alert(me);
+    }
+
+</script>
+</html>

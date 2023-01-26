@@ -1,0 +1,43 @@
+#wrap {
+    width: 1000px;
+    margin:auto;
+}
+
+#scroll-table {
+    height:200px;
+    width: 1000px;
+    margin:auto;
+    overflow: auto;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    line-height: 24px;
+}
+
+table td,th {
+    border-top:1px solid rgb(22, 48, 110);
+    border-bottom:1px solid rgb(22, 48, 110);
+    border-collapse: collapse;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    background: rgb(22, 48, 110);
+    color: white;
+}
+
+td{
+    width: 50%;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    text-decoration: underline;
+}

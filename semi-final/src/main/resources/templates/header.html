@@ -1,0 +1,17 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div class="top-bar">
+    <div class="h-content" onclick="location.href='main'">
+        <img alt="로고" src="img/scialogo45.png" class="top-left logo">
+        <h2 class="top-left">SHIA</h2>
+    </div>
+    <div class="id-div">
+        <!-- th:text="${member.mname}" -->
+        <h4 class="top-right">
+            <span th:text="${session.member.getMid()} + '님'" style="margin: 0 20px"></span>
+            <a th:href="@{logoutProc}" style="color: white; margin-right: 15px">[로그아웃]</a>
+            <a th:href="@{delmem}" style="color: white; margin-right: 15px" id="delmem" onclick="return confirm('탈퇴 하시겠습니까?')">[회원 탈퇴]</a>
+            <a th:href="@{updateMem}" style="color: white" onclick="return confirm('수정 하시겠습니까?')">[정보 수정]</a>
+        </h4>
+    </div>
+</div>
