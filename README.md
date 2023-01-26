@@ -1,2 +1,2 @@
 # ICIA-semi-final
-ICIA semi-final academy
+ICIA 세미프로젝트 academy
