@@ -415,5 +415,7 @@ public String regMem(Member member, RedirectAttributes rttr, String mid) {
 - #### 회원 정보 수정 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215352653-436d62ec-dd30-47dd-bd83-ae2e032c5d86.png)
 
-마치며<br>
-
+마치며
+---
+#### 소감<br>
+짧은 기간의 프로젝트긴 하지만, 아쉬움이 많이 남던 프로젝트입니다. jstl 문법도 정리가 되지 않은 상태에서 thymeleaf 문법을 배워 부족한 상태에서 했었습니다. 더 많은 경험과 노력으로 더 나아지는 모습 보여드리겠습니다!
