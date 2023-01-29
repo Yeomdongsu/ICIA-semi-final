@@ -32,7 +32,6 @@ View 템플릿 : Thymeleaf<br>
 - 신청자 목록 출력, 과정명 검색<br>
 
 ※ Front_로그인, 회원가입<br>
----
 ```javascript
 <div class="wrapper">
     <div class="container">
