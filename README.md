@@ -30,8 +30,9 @@ View 템플릿 : Thymeleaf<br>
 - 로그인 관련(회원가입, 로그인, 로그아웃, 회원 정보 수정, 회원탈퇴)<br>
 - 과정 리스트 출력, 과정 등록, 과정 상세 페이지<br>
 - 신청자 목록 출력, 과정명 검색<br>
+---
 
-※ Front_로그인, 회원가입<br>
+- Front_로그인, 회원가입<br>
 ```javascript
 <div class="wrapper">
     <div class="container">
