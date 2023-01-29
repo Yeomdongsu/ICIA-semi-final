@@ -29,7 +29,7 @@ View 템플릿 : Thymeleaf<br>
 구현한 기능들 :<br>
 - 로그인 관련(회원가입, 로그인, 로그아웃, 회원 정보 수정, 회원탈퇴)<br>
 - 과정 리스트 출력, 과정 등록, 과정 상세 페이지<br>
-- 신청자 목록 출력, 과정명 검색<br>
+- 신청자 목록 출력, 페이징처리, 과정명 검색<br>
 ---
 
 - Front_로그인, 회원가입<br>
@@ -128,8 +128,10 @@ public String regMem(Member member, RedirectAttributes rttr, String mid) {
         return view;
     }
 ```
+- #### 로그인, 회원가입 화면<br><br>
+![image](https://user-images.githubusercontent.com/117874997/215352529-a16697bc-c2d1-41b6-843e-3c908a06c86b.png)
 
-※ Front_메인화면<br>
+- Front_메인화면<br>
 ```javascript
 <main id="main">
     <!-- 과정 리스트 섹션 -->
@@ -176,22 +178,242 @@ public String regMem(Member member, RedirectAttributes rttr, String mid) {
     </section>
 </main> 
 ```
+- Back_메인화면<br>
+```java
+    @GetMapping("main") // 메인 화면
+    public ModelAndView main() {
+        log.info("main()");
+        mv = iServ.getCourseList();
+        return mv;
+    }
+```
+```java
+     public ModelAndView getCourseList() {
+        log.info("getCourseList()");
+        ModelAndView mv = new ModelAndView();
 
+        List<Course> cList = new ArrayList<>();
+        Iterable<Course> cIter = cRepo.findAll();
 
-※ Front_로그인, 회원가입 <br>
+        for (Course c : cIter) {
+            cList.add(c);
+        }
+
+        mv.addObject("cList", cList);
+        mv.setViewName("main");
+
+        return mv;
+    }
+```
 - #### 메인 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215346300-ff1c5508-2b67-47e8-bbb8-82d1c10be049.png)
 
-- #### 로그인, 회원가입 화면<br><br>
-![image](https://user-images.githubusercontent.com/117874997/215352529-a16697bc-c2d1-41b6-843e-3c908a06c86b.png)
+- Front_과정 등록<br>
+```javascript
+   <form name="form" id="form" role="form" th:action="@{courseWrt}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label>과정 제목</label>
+                <input type="text" class="form-control" name="cname" id="title" placeholder="과정 제목을 입력해주세요" required>
+            </div>
+            <div class="row mb-3">
+                <div class="teacher">
+                    <label>강사 이름</label>
+                    <input type="text" class="form-control" name="ctname" placeholder="강사 이름을 입력해주세요" required>
+                </div>
+                <div class="price">
+                    <label>과정 가격</label>
+                    <input type="text" class="form-control" name="cprice" placeholder="과정 가격을 입력해주세요" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>과정 기간</label>
+                <input type="text" class="form-control" name="cdate" placeholder="과정 기간을 입력해주세요 ex) 22.01.01 ~ 22.12.31"
+                       required>
+            </div>
+            <div class="mb-3">
+                <label for="content">내용</label>
+                <textarea class="form-control" rows="5" name="cintro" id="content" placeholder="내용을 입력해주세요"
+                          required></textarea>
+            </div>
+            <div class="btn-area">
+                <button class="btn" type="submit">등록</button>
+            </div>
+        </form>
+```
+- Back_과정 등록<br>
+```java
+    @GetMapping("courseWrt") // 과정 등록 메소드
+    public String courseWrt(Course course, HttpSession session,
+                            RedirectAttributes rttr) {
+        log.info("courseWrt()");
+        String view = iServ.insertCourse(course, session, rttr);
+
+        return view;
+    }
+```
+```java
+   public String insertCourse(Course course, HttpSession session,
+                               RedirectAttributes rttr) {
+        log.info("insertCourse()");
+        String msg = null;
+        String view = null;
+
+        try {
+            cRepo.save(course);
+
+            session.setAttribute("course", course);
+            msg = "과정 등록을 성공하였습니다.";
+            view = "redirect:main";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "과정 등록을 실패하였습니다.";
+            view = "redirect:courseFrm";
+        }
+
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+```
 
 - #### 과정 등록 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215352553-9f177e34-b069-4f58-8fee-eced4024e9a0.png)
 
+- Front_신청자 리스트 출력, 페이징 처리 <br>
+```javascript
+   <div class="com-table">
+            <!--      table 윗줄-->
+            <div class="p-10 table-top">번호</div>
+            <div class="p-30 table-top">강의명</div>
+            <div class="p-15 table-top">아이디</div>
+            <div class="t-date p-45 table-top">신청일</div>
+        </div>
+        <!--        중간-->
+        <div class="middle-table">
+            <th:block th:each="bitem:${cList}">
+                <div style="margin: 0 auto">
+                    <div class="middle-row">
+                        <!--            DB에서 넘어올 자료 데이터 리스트-->
+                        <th:block th:if="${#lists.isEmpty(cList)}">
+                            <div class="data-non">신청자가 없습니다.</div>
+                        </th:block>
+                        <th:block th:unless="${#lists.isEmpty(cList)}">
+                            <div class="cell-num" th:text="${bitem.cpnum}"></div>
+                            <div class="cell-name" th:text="${bitem.cpcname.cname}"></div>
+                            <div class="cell-id" th:text="${bitem.cpcmid.mid}"></div>
+                            <div class="cell-date" th:text="${#dates.format(bitem.cpdate,'yyyy-MM-dd')}">DB 날짜</div>
+                        </th:block>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <!--        페이징 처리-->
+        <div class="btn-area">
+            <div class="paging" th:utext="${paging}"></div>
+        </div>
+```
+
+- Back_신청자 리스트 출력, 페이징 처리<br>
+```java
+   @GetMapping("Complete")
+    public ModelAndView getList(Integer pageNum, HttpSession session) {
+        log.info("getList()");
+        mv = iServ.getCompleteList(pageNum, session);
+        mv.setViewName("Complete");
+        return mv;
+    }
+```
+```java
+   public ModelAndView getCompleteList(Integer pageNum, HttpSession session) {
+        log.info("getCompleteList()");
+        ModelAndView mv = new ModelAndView();
+        mv = new ModelAndView();
+
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        int listCnt = 5;//페이지 당 신청목록 개수
+        //페이지 조건
+        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
+                Sort.Direction.DESC, "cpnum");
+
+        Page<Complete> result = cpRepo.findByCpnumGreaterThan(0L, pb);
+
+        List<Complete> cList = result.getContent();
+
+        int totalPage = result.getTotalPages();//전체 페이지 개수
+
+        String paging = getPaging(pageNum, totalPage);
+
+        mv.addObject("cList", cList);
+        mv.addObject("paging", paging);
+
+        //현재 보이는 페이지의 번호를 저장.
+        session.setAttribute("pageNum", pageNum);
+
+        return mv;
+    }
+```
 - #### 신청자 리스트 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215352622-a94312ff-e47c-4899-be5d-8b330c37666c.png)
+
+- Front_회원 정보 수정<br>
+```javascript
+   <h1>정보 수정</h1><br>
+        <form th:action="@{updateMem2}" method="post">
+            <input type="text" placeholder="아이디" name="mid" id="idin"
+                   th:value="${session.member.getMid()}" readonly>
+            <input type="password" placeholder="비밀번호" name="mpwd" maxlength="20" required>
+            <input type="text" name="mname" placeholder="이름" maxlength="30"
+                   th:value="${session.member.getMname()}" required>
+            <input type="text" name="mage" placeholder="나이" pattern="\d*"
+                   th:value="${session.member.getMage()}" maxlength="3" title="숫자를 입력해주세요">
+            <input type="text" name="maddress" placeholder="주소"
+                    th:value="${session.member.getMaddress()}">
+            <input type="tel" name="mphone" placeholder="000-0000-0000"
+                   th:value="${session.member.getMphone()}" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+                   title="전화번호를 입력해주세요">
+            <input type="hidden" name="mgrade" th:value="${session.member.getMgrade()}">
+            <button id="signUp" class="overlay_btn">정보수정</button>
+        </form>
+```
+- Back_회원 정보 수정<br>
+```java
+    @PostMapping("updateMem2")
+    public String updateMem2(Member member, HttpSession session, RedirectAttributes rttr){
+        log.info("updateMem2()");
+        String update = iServ.updateMember(member, session, rttr);
+        return update;
+    }
+```
+```java
+   public String updateMember(Member member, HttpSession session, RedirectAttributes rttr) {
+        log.info("updateMember()");
+        String msg = null;
+        String view = null;
+
+        try {
+            String cpwd = encoder.encode(member.getMpwd());
+            log.info(cpwd);
+            member.setMpwd(cpwd);
+
+            mRepo.save(member);
+
+            session.invalidate();
+
+            msg = "수정 성공";
+            view = "redirect:/";
+        } catch (Exception e){
+            msg = "수정 실패";
+            view = "redirect:updateMem";
+        }
+        rttr.addFlashAttribute("me", msg);
+        return view;
+    }
+```
 
 - #### 회원 정보 수정 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215352653-436d62ec-dd30-47dd-bd83-ae2e032c5d86.png)
 
+마치며<br>
 
