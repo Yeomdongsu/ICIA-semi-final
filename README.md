@@ -29,3 +29,16 @@ View 템플릿 : Thymeleaf<br>
 - #### 메인 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215346300-ff1c5508-2b67-47e8-bbb8-82d1c10be049.png)
 
+- #### 로그인, 회원가입 화면<br><br>
+![image](https://user-images.githubusercontent.com/117874997/215352529-a16697bc-c2d1-41b6-843e-3c908a06c86b.png)
+
+- #### 과정 등록 화면<br><br>
+![image](https://user-images.githubusercontent.com/117874997/215352553-9f177e34-b069-4f58-8fee-eced4024e9a0.png)
+
+- #### 신청자 리스트 화면<br><br>
+![image](https://user-images.githubusercontent.com/117874997/215352622-a94312ff-e47c-4899-be5d-8b330c37666c.png)
+
+- #### 회원 정보 수정 화면<br><br>
+![image](https://user-images.githubusercontent.com/117874997/215352653-436d62ec-dd30-47dd-bd83-ae2e032c5d86.png)
+
+
