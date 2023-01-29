@@ -31,8 +31,9 @@ View 템플릿 : Thymeleaf<br>
 - 과정 리스트 출력, 과정 등록, 과정 상세 페이지<br>
 - 신청자 목록 출력, 과정명 검색<br>
 
-※ 로그인 관련<br>
-```thymeleaf
+※ Front_로그인, 회원가입<br>
+---
+```javascript
 <div class="wrapper">
     <div class="container">
         <div class="sign-in-container">
@@ -51,7 +52,7 @@ View 템플릿 : Thymeleaf<br>
     </div>
 </div>
 ```
-- 회원가입<br>
+- Back_회원가입<br>
 ```java
     @PostMapping("regmem") // 회원가입 메소드
     public String regMem(Member member, RedirectAttributes rttr, String mid) {
@@ -88,7 +89,7 @@ public String regMem(Member member, RedirectAttributes rttr, String mid) {
         return view;
     }
 ```
-- 로그인<br>
+- Back_로그인<br>
 ```java
     @PostMapping("loginmem") // 로그인 메소드
     public String loginmem(Member member, HttpSession session, RedirectAttributes rttr) {
@@ -128,6 +129,56 @@ public String regMem(Member member, RedirectAttributes rttr, String mid) {
     }
 ```
 
+※ Front_메인화면<br>
+```javascript
+<main id="main">
+    <!-- 과정 리스트 섹션 -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="hlist">학원 과정 목록</h2>
+            <div class="clist-div">
+                <div class="cwrtBtn-div">
+                    <button class="cwrtBtn" onclick="location.href='Complete'">신청자 목록</button>
+                    <th:block th:if="${session.member.getMgrade()} == '0'">
+                        <button class="cwrtBtn" onclick="location.href='courseFrm'">과정 등록</button>
+                    </th:block>
+                    <th:block th:unless="${session.member.getMgrade()} == '0'">
+                        <button class="cwrtBtn" onclick="location.href='courseFrm'" style="display: none">과정 등록</button>
+                    </th:block>
+                </div>
+                <
+                <!-- 리스트 테이블 -->
+                <div id="wrap">
+                    <table>
+                        <tr colspan="2">
+                            <th>과정 제목</th>
+                            <th>과정 기간</th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="scroll-table">
+                    <table>
+                        <th:block th:if="${#lists.isEmpty(cList)}">
+                            <div class="non-content" style="margin-top: 80px; text-align: center">등록된 과정이 없습니다.</div>
+                        </th:block>
+                        <th:block th:unless="${#lists.isEmpty(cList)}">
+                            <th:block th:each="cr:${cList}">
+                                <tr>
+                                    <td><a th:href="@{detail(cname=${cr.cname})}">[[${cr.cname}]]</a></td>
+                                    <td th:text="${cr.cdate}"></td>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main> 
+```
+
+
+※ Front_로그인, 회원가입 <br>
 - #### 메인 화면<br><br>
 ![image](https://user-images.githubusercontent.com/117874997/215346300-ff1c5508-2b67-47e8-bbb8-82d1c10be049.png)
 
